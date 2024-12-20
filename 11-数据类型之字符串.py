@@ -412,6 +412,18 @@
             5. rindex() 从右侧开始查找
             6. count(sub, start=None, end=None) 在 原字符串 查找 子字符串 出现的次数 可以指定起始和结束位置，没找到返回0
 
+        字符串判断：
+            1. startswith(prefix, start=None, end=None) 判断字符串是否以子字符串prefix开头，也可以使用start，end指定判断起始和结束位置
+            2. endswith(suffix, start=None, end=None) 和startswith函数同理，不过是判断是否以给定的子字符串结尾
+            3. isalpha()：如果字符串⾄少有⼀个字符并且所有字符都是字⺟则返回 True, 否则返回 False。
+            4. isdigit()：如果字符串只包含数字则返回 True 否则返回 False。
+            5. isalnum()：如果字符串⾄少有⼀个字符并且所有字符都是字⺟或数字则返 回 True,否则返回False。
+            6. isspace()：如果字符串中只包含空⽩，则返回 True，否则返回 False。
+
+        字符串算术运算：
+            1. 字符串加法：两个字符串相加，等于将两个字符串拼接在一起，形成一个新的字符串
+            2. 字符串乘法：字符串和数n相乘，相当于把这个字符串复制n份，然后拼接成一个新的字符串
+
 
 
 
