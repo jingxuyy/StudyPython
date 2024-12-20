@@ -292,6 +292,141 @@
 
             像网页登录要求输入验证码，不区分大小写，就可以使用 upper或者lower将用户输入的字符串转成都转成大写或者小写 再比较
 
+    删：删除字符串（注意，是生成新的字符串）
+        - strip()   默认删除字符串两端前后空格
+        - lstrip()  删除字符串两端左侧空格
+        - rstrip()  删除字符串两端右侧空格
+
+        例如：
+            str7 = "  python world  "
+            print(str7.strip())  # python world
+            print(str7.lstrip())  # python world
+            print(str7.rstrip())  #   python world
+
+        - ljust(len)  返回字符串左对齐，左对齐长度为len,要是字符串长度小于等于len，则无变化，要是len大于字符串长度，左对齐后默认右侧补空格，也可以指定补的字符
+        - rjust(len)  同理右对齐，默认左侧补空格
+        - center(len)  两端对齐，左右都补空格
+
+        例如：
+            my_str2 = "hello"
+            print(my_str2.ljust(5))  # hello
+            print(my_str2.ljust(7))  # hello
+            print(my_str2.ljust(7, '*'))  # hello**
+            print(my_str2.rjust(7, '*'))  # **hello
+            print(my_str2.center(10, '*'))  # **hello***
+
+
+    一些判断：
+        - startswith(self, prefix, start=None, end=None) 判断字符串是否以子字符串prefix开头，也可以使用start，end指定判断起始和结束位置
+        - endswith(self, suffix, start=None, end=None) 和startswith函数同理，不过是判断是否以给定的子字符串结尾
+        例如：
+            my_str3 = "hello world and itcast and itheima and Python"
+            # 结果：True
+            print(my_str3.startswith('hello'))
+            # 结果False
+            print(my_str3.startswith('hello', 5, 20))
+
+            # 结果：True
+            print(my_str3.endswith('Python'))
+            # 结果：False
+            print(my_str3.endswith('python'))
+            # 结果：False
+            print(my_str3.endswith('Python', 2, 20))
+
+        字符串内容判断：
+            - isalpha()：如果字符串⾄少有⼀个字符并且所有字符都是字⺟则返回 True, 否则返回 False。
+                    mystr1 = 'hello'
+                    mystr2 = 'hello12345'
+                    # 结果：True
+                    print(mystr1.isalpha())
+                    # 结果：False
+                    print(mystr2.isalpha())
+            - isdigit()：如果字符串只包含数字则返回 True 否则返回 False。
+                    mystr1 = 'aaa12345'
+                    mystr2 = '12345'
+                    # 结果： False
+                    print(mystr1.isdigit())
+                    # 结果：True
+                    print(mystr2.isdigit())
+            - isalnum()：如果字符串⾄少有⼀个字符并且所有字符都是字⺟或数字则返 回 True,否则返回False。
+                    mystr1 = 'aaa12345'
+                    mystr2 = '12345-'
+                    # 结果：True
+                    print(mystr1.isalnum())
+                    # 结果：False
+                    print(mystr2.isalnum())
+            - isspace()：如果字符串中只包含空⽩，则返回 True，否则返回 False。
+                    mystr1 = '1 2 3 4 5'
+                    mystr2 = ' '
+                    # 结果：False
+                    print(mystr1.isspace())
+                    # 结果：True
+                    print(mystr2.isspace())
+
+        使用这些字符串内容判断函数可以判断字符串内容是否是自己想要的内容，例如结合input()函数，将得到的用户输入，使用isdigit函数判断，就可以知道用户是否输入的是数字
+
+        字符串算术运算：
+            字符串可以使用加法、乘法
+            - 字符串加法：两个字符串相加，等于将两个字符串拼接在一起，形成一个新的字符串
+            - 字符串乘法：字符串和数相乘，相当于把这个字符串复制n份，然后拼接成一个新的字符串
+
+            print('Python' + ' Hello')  # Python Hello
+            print('Python' * 3)  # PythonPythonPython
+
+
+
+
+    字符串总结：
+        字符串本身性质：
+        - 1. 字符串是不可变数据类型，一旦声明不可修改，一切形式上的修改都是生成新的字符串
+        - 2. 字符串有下标，所以字符串是有序的，字符串从左数，下标从0开始，从右数下标从-1开始
+        - 3. 字符串有序，可以切片， 字符串[起始位置:结束位置:步长]  起始位置、结束位置、步长 三者均可为正为负，只要保证 : 起始位置 + n*(步长) >= 结束位置 即可
+                特别，反转字符串 只需要  字符串[::-1] 即可
+
+        字符串常用函数：增删改查（不可变数据类型，均是产生新的字符串）
+        - 增:
+            无
+
+        - 删：
+            1. lstrip()   删除字符串两端左侧所有空白
+            2. strip()    删除字符串两端所有空白
+            3. rstrip()   删除字符串两端右侧所有空白
+            4. ljust(len)  字符串左对齐，不足右侧补空格，可指定补充字符
+            5. rjust(len)  字符串右对齐，不足左侧补空格，可指定补充字符
+            6. center(len)  两端对齐，左右都补空格，可指定补充字符
+
+        - 改：
+            1. replace(old, new) 替换
+            2. split(分割字符, num) 根据给定的分割字符进行字符串分割成列表，分隔符舍弃，可指定分割次数
+            3. 子字符串.join(序列) 将序列按照给定的子字符串进行连接，形成一个字符串
+            4. capitalize() 将字符串里第一个单词的字母大写， 其它字母转成小写
+            5. title() 将字符串每个单词⾸字⺟转换成⼤写。 其它不变
+            6. lower() 将字符串中⼤写转⼩写。
+            7. upper() 将字符串中⼩写转⼤写。
+
+        - 查：
+            1. 字符串[下标] 查找
+            2. find(sub, start=None, end=None)  在 原字符串 查找 子字符串 的位置 可以指定起始和结束位置，没找到返回-1
+            3. index(sub, start=None, end=None) 在 原字符串 查找 子字符串 的位置 可以指定起始和结束位置，没找到报错
+            4. rfind() 从右侧开始查找
+            5. rindex() 从右侧开始查找
+            6. count(sub, start=None, end=None) 在 原字符串 查找 子字符串 出现的次数 可以指定起始和结束位置，没找到返回0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -403,6 +538,66 @@ print(my_str.capitalize())  # Hello world and java and c# and python
 print(my_str.title())  # Hello World And Java And C# And Python
 print(my_str.upper())  # HELLO WORLD AND JAVA AND C# AND PYTHON
 print(my_str.lower())  # hello world and java and c# and python
+
+str7 = "  python world  "
+print(str7.strip())  # python world
+print(str7.lstrip())  # python world
+print(str7.rstrip())  #   python world
+
+my_str2 = "hello"
+print(my_str2.ljust(5))  # hello
+print(my_str2.ljust(7))  # hello
+print(my_str2.ljust(7, '*'))  # hello**
+print(my_str2.rjust(7, '*'))  # **hello
+print(my_str2.center(10, '*'))  # **hello***
+
+
+my_str3 = "hello world and itcast and itheima and Python"
+# 结果：True
+print(my_str3.startswith('hello'))
+# 结果False
+print(my_str3.startswith('hello', 5, 20))
+
+# 结果：True
+print(my_str3.endswith('Python'))
+# 结果：False
+print(my_str3.endswith('python'))
+# 结果：False
+print(my_str3.endswith('Python', 2, 20))
+
+
+mystr1 = 'hello'
+mystr2 = 'hello12345'
+# 结果：True
+print(mystr1.isalpha())
+# 结果：False
+print(mystr2.isalpha())
+
+mystr1 = 'aaa12345'
+mystr2 = '12345'
+# 结果： False
+print(mystr1.isdigit())
+# 结果：True
+print(mystr2.isdigit())
+
+mystr1 = 'aaa12345'
+mystr2 = '12345-'
+# 结果：True
+print(mystr1.isalnum())
+# 结果：False
+print(mystr2.isalnum())
+
+mystr1 = '1 2 3 4 5'
+mystr2 = ' '
+# 结果：False
+print(mystr1.isspace())
+# 结果：True
+print(mystr2.isspace())
+
+
+print('Python' + ' Hello')  # Python Hello
+print('Python' * 3)  # PythonPythonPython
+
 
 
 
