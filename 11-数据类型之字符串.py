@@ -373,6 +373,22 @@
             print('Python' + ' Hello')  # Python Hello
             print('Python' * 3)  # PythonPythonPython
 
+    字符串遍历：
+        序列可以遍历，遍历也就是依次访问序列里的每个元素，然后对每个元素做一些相关操作，这里以打印元素为准
+        因为字符串是有序、有下标，所以可以使用for循环或者while循环进行遍历
+
+        len(序列) ： 此函数可以返回序列里元素的个数，也就是序列长度
+
+        例如：
+            for ch in my_str:
+                print(ch, end=" ")  # h e l l o   w o r l d   a n d   j a v a   a n d   C #   a n d   P y t h o n
+            print()
+
+            i = 0
+            while i < len(my_str):
+                print(my_str[i], end=" ")  # h e l l o   w o r l d   a n d   j a v a   a n d   C #   a n d   P y t h o n
+                i += 1
+
 
 
 
@@ -423,6 +439,13 @@
         字符串算术运算：
             1. 字符串加法：两个字符串相加，等于将两个字符串拼接在一起，形成一个新的字符串
             2. 字符串乘法：字符串和数n相乘，相当于把这个字符串复制n份，然后拼接成一个新的字符串
+
+        字符串遍历：
+            1. for循环遍历
+            2. while循环遍历
+
+        字符串长度：
+            len(字符串)
 
 
 
@@ -609,6 +632,15 @@ print(mystr2.isspace())
 
 print('Python' + ' Hello')  # Python Hello
 print('Python' * 3)  # PythonPythonPython
+
+for ch in my_str:
+    print(ch, end=" ")  # h e l l o   w o r l d   a n d   j a v a   a n d   C #   a n d   P y t h o n
+print()
+
+i = 0
+while i < len(my_str):
+    print(my_str[i], end=" ")  # h e l l o   w o r l d   a n d   j a v a   a n d   C #   a n d   P y t h o n
+    i += 1
 
 
 
