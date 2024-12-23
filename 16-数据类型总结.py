@@ -239,5 +239,72 @@
 
         然后一些特有方法，记忆一下
 
+    推导式：
+        1. 列表推导式：
+            ⽤⼀个表达式创建⼀个有规律的列表或控制⼀个有规律列表。
+            例1：生成一个1-10得列表（不使用range()函数直接生成）
+            正常情况：
+            list1 = []
+            for num in range(1, 11):
+                list1.append(num)
+            print(list1)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+            使用列表推导式：
+            list2 = [num for num in range(1, 11)]
+            print(list2)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+            例2：生成1-100之类得偶数列表
+            list3 = []
+            for num in range(1, 101):
+                if num % 2 == 0:
+                    list3.append(num)
+            print(list3)  # [2, 4, 6, 8, 10, 12,...,100]
+
+            使用列表推导式：
+            list4 = [num for num in range(1, 101) if num % 2 == 0]
+            print(list4)  # [2, 4, 6, 8, 10, 12,...,100]
+
+            使用规则：目的是生成一个列表：
+                如果使用for循环生成列表，发现for循环里只有简单得一条语句就可以使用列表推导式
+                一条语句：
+                    例如 list1.append(num)这是一条语句
+                    如果有if这样得判断，此时需要查看if里面是否是一条语句，是的话就可以
+                    因此如果 for 后 if 再 if 也行
+                    或者 for 后 跟 for
+                    只要保证一条语句就行：
+                    list5 = [(i, j) for i in range(1, 3) for j in range(3)]
+
+                    其实也可以这样看，代码是阶梯型就可以
+                    for
+                        for
+                            if
+                                ...
+                    下面这样就不行
+                    for
+                        for
+                        if
+                    因为for和if同级了，是两条语句
+        2. 字典推导式：
+            主要用于将两个字典合并生成一个字典
+        个人感觉列表推导式相比于字典推导式使用频率更加频繁，这里就不介绍字典推导式
+
 
 """
+
+list1 = []
+for num in range(1, 11):
+    list1.append(num)
+print(list1)  # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+list2 = [num for num in range(1, 11)]
+print(list2)
+
+
+list3 = []
+for num in range(1, 101):
+    if num % 2 == 0:
+        list3.append(num)
+print(list3)  # [2, 4, 6, 8, 10, 12,...,100]
+
+list4 = [num for num in range(1, 101) if num % 2 == 0]
+print(list4)  # [2, 4, 6, 8, 10, 12,...,100]
