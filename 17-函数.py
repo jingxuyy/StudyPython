@@ -238,6 +238,254 @@
 
             a, b, c =  example_tuple()
 
+
+    函数的参数：
+        函数的参数可以细分为四种：1. 位置参数 2. 关键字参数 3. 缺省参数 4. 不定长参数
+
+        1. 位置参数：
+            例如：
+                def user_info(name, age, gender):
+                    print(f'您的名字是{name}, 年龄是{age}, 性别是{gender}')
+
+                user_info('TOM', 20, '男')  # 您的名字是TOM, 年龄是20, 性别是男    位置参数，一一对应
+                user_info(20, 'TOM', '男')  # 您的名字是20, 年龄是TOM, 性别是男    位置参数，没有一一对应
+
+            位置参数，具体是，函数的形参和实参 位置要一一对应，否则程序会出现错误
+
+        2. 关键字参数：
+            关键字参数是对于函数调用方而言的
+            位置参数调用：user_info('TOM', 20, '男')
+            关键字参数调用：user_info(name='Tom', age=20, gender='男')  # 您的名字是TOM, 年龄是20, 性别是男
+            即关键字参数，就是调用方，在调用时，指明把实参传递给哪个形成
+            由于关键字参数，指定了哪个实参对应哪个形参，因此不需要位置一一对应
+            user_info(gender='男', age=20, name='Tom')  # 您的名字是TOM, 年龄是20, 性别是男
+
+            位置参数和关键字参数可以一起使用：
+            user_info('Tom', age=20, gender='男')  # 您的名字是TOM, 年龄是20, 性别是男
+
+            位置参数和关键字参数一起使用：必须位置参数写在最前面
+            例如：
+                user_info(name='Tom', 20, gender='男')  错误，位置参数20在关键字参数中间
+                user_info('Tom', age=20, gender='男') 正确
+                user_info('Tom', 20, gender='男') 正确
+                user_info('Tom', gender='男', age=20) 正确
+
+        3. 缺省参数：
+            缺省参数是相对于形参而言的
+            缺省参数指的是，函数定义时，给了函数的形参默认值，这样，调用方可以选择要不要给缺省参数赋值，不给则使用默认值
+            例如：
+                def user_info(name, age, gender='男'):
+                    print(f'您的名字是{name}, 年龄是{age}, 性别是{gender}')
+
+                user_info('TOM', 20)  # 您的名字是TOM, 年龄是20, 性别是男
+                user_info('Rose', 18, '⼥')  # 您的名字是Rose, 年龄是18, 性别是⼥
+            使用user_info('TOM', 20)调用时，没有给缺省参数 gender赋值，则调用函数时，使用默认值
+            使用user_info('Rose', 18, '⼥')调用时，有给缺省参数 gender赋值为 女，则调用函数时，使用调用传递过来的值
+            使用缺省参数可以实现形参个数和实参个数不相等
+
+        4. 不定长参数：
+            有的时候函数定义时，并不知道函数调用方会传递多少参数过来，即不定参数用于接收多个参数，且参数个数动态变化
+            例如：
+                需求根据用户输入的数字求和，用户可以输入1、2、3、4、....、n个参数
+                def get_all_sum(*args):
+                    sum = 0
+                    for num in args:
+                        sum += num
+                    print(f"{len(args)}个数的和是：{sum}")
+
+                get_all_sum(1)  # 1个数的和是：1
+                get_all_sum(1, 2)  # 2个数的和是：3
+                get_all_sum(1, 2, 3)  # 3个数的和是：6
+                get_all_sum(1, 2, 3, 4)  # 4个数的和是：10
+
+            不定长参数 函数形参 使用 *args 表示不定长参数   但是并不是一定使用 *args  ，其中args可以是任何变量名，不过在python中默认使用args
+            args 其实是一个元组，当调用方传递一个数，则 args为一个元素的元组，传递n个参数 args为n个元素的元组
+
+            同理：
+                也可以使用 **kwargs 接收多个参数，不过 kwargs表示的是字典，因此，调用方传递参数时，需要使用关键字参数传递，即key=value传递
+                例如：
+                    def user_info(**kwargs):
+                        print(kwargs)
+
+                    user_info(name='TOM', age=18, id=110)  # {'name': 'TOM', 'age': 18, 'id': 110}
+
+
+        多种参数在一起时：定义时，需要指定 不定长参数在最后，位置参数在最前面，不定长参数中：需要 *args在 **kwargs前面
+                        调用时，位置参数在最前面，不定长参数在最后
+
+
+    python的变量交换值：
+        a=1, b= 2  现在要求 a和b的值相互交换，a=2, b=1
+
+        方案一：
+        使用临时变量
+        c = a
+        a = b
+        b = c
+
+        方案二：
+        python特有的交换方式
+        a, b = b, a
+
+
+    引用：
+        指的是变量在内存里的位置（不是真正位置，做了转换）
+        可以通过两个变量的引用来判断两个变量是不是同一个变量
+        id(变量)
+        id函数可以输出变量的引用
+        print(id(1))  # 1507308431664
+
+
+    注意：
+        如果函数参数接收的是不可变数据类型，则在函数内对这个参数进行修改不会影响到实参
+        如果函数参数接收的是可变数据类型，则在函数内部对这个参数进行修改会影响到实参
+        var_c = 10
+        var_list = [10]
+        def var(c, b):
+            c = 20
+            b.append(20)
+
+        var(var_c, var_list)
+        print(var_c)
+        print(var_list)
+
+
+    匿名函数：即没有名字的函数，当一个函数只使用一次，并且函数体只有一个表达式可以使用
+    形式：
+        lambda 参数 : 表达式
+    参数可以没有，也可以有多个
+
+    也可以强行给匿名函数取名字
+    函数名 = lambda 参数 : 表达式
+
+    def sum_func(a1, b1, c1):
+        return a1 + b1 + c1
+
+    sum_lambda = lambda a1, b1, c1: a1 + b1 + c1
+    print(sum_func(1, 2, 3))  # 6
+    print(sum_lambda(1, 2, 3))  # 6
+    print((lambda a1, b1, c1: a1 + b1 + c1)(1, 2, 3))  # 6
+
+    一般来说：匿名函数可以当作函数参数传递、或者函数返回值传递
+
+
+
+    函数递归：
+        即函数自己调用自己：注意函数自己调用自己，必须有一个停止条件，不然自己调用自己会一直调用下去
+
+    例如：
+        求 n 的阶乘
+        n! = n * (n-1)!
+        (n-1)! = (n-1)*(n-2)!
+        .......
+        1!= 1 * 0!= 1
+
+        如果把求阶乘定义一个函数，就会发现，n! = n * (n-1)! 是自己调用自己，只是第一次 实参是 n 第二次实参是n-1
+
+        def fact(n):
+            if n == 1 or n == 0:
+                return 1
+            return n * fact(n-1)
+
+        print(fact(1))  # 1
+        print(fact(2))  # 2
+        print(fact(3))  # 6
+        print(fact(4))  # 24
+        print(fact(5))  # 120
+
+
+    说明：
+        1. 把函数当作参数传递，此时实参传递函数名，不能传递 函数名() 这就等于把函数调用了执行了
+            另外在函数使用形参接受了函数名，此时这个形参就是函数名，可以进行函数调用
+
+        2. 把函数当作返回值：1.要么 return 函数名() 这样就等于把函数执行后的返回值再返回出去
+                            2. 要么 return 函数名  此时外部结束返回值的变量就是函数名，可以像函数那样调用
+
+    这样把函数当作参数传递或者返回的函数称为高阶函数
+    在python中有几个内置的告诫函数
+
+    1. map函数
+        map(function, iterable, ...)
+            function：函数
+            iterable：一个或多个序列
+
+        作用：map将传入的函数依次作用到序列的每个元素，并把结果作为新的序列返回，如果多个序列，则要求每个序列长度相等   一般做数据转换，或者数据映射
+
+        def func1(x):
+            return x**2
+
+        list1 = [1, 2, 3, 4, 5, 6, 7, 8]
+        result1 = list(map(func1, list1))
+        print(result1)  # [1, 4, 9, 16, 25, 36, 49, 64]
+        result2 = list(map(lambda x: x**2, list1))           由于func1只有一条语句，因此可以使用lambda进行替换
+        print(result2)  # [1, 4, 9, 16, 25, 36, 49, 64]
+
+        1   2   3   4   5   6   7   8
+
+                x**2
+        1   4   9   16  25  36  49  64
+
+        由于map函数是进行数据转换，因此执行前后序列里元素个数不会发生变换
+
+
+    2. filter函数
+        filter(function, iterable)
+            function：判断函数。
+            iterable ：可迭代对象
+
+        作用：用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新序列    主要用于筛选数据
+
+        list1 = [1, 2, 3, 4, 5, 6, 7, 8]
+        result3 = list(filter(lambda x: x % 2 == 0, list1))
+        print(result3)  # [2, 4, 6, 8]
+        例如：上述通过传入一个匿名函数筛选列表中偶数，形成新的列表
+        由于 filter函数是用于过滤的，因此传入filter的函数其函数体返回值或者表达式需要是一个布尔类型，filter根据这个布尔条件进行筛选
+        由于filter函数是用于过滤的所以，执行过后其结果序列小于等于原序列个数
+
+
+    3. reduce函数
+        reduce(function,sequence[,initial]=>value)
+            function：函数
+            iterable：一个或多个序列
+
+        作用：这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，最终返回单个累积值
+        也就是，reduce会将序列每个元素进行操作，最后返回一个元素
+
+        from functools import reduce
+        result4 = reduce(lambda x, y: x + y, list1)
+        print(result4)  # 36
+
+        如上， lambda x, y: x + y 是求和，那它会作用到序列每一个元素，最终结果就是元素求和
+        from functools import reduce 这是是导包语句，reduce函数放在了functools文件里，需要导入到当前文件，这里后面会讲解，
+        如果想使用reduce就必须 from functools import reduce
+
+        注意：序列经过reduce后，只会计算出一个结果，并reduce中传递的函数 其参数必须是两个
+
+    4. sorted函数
+        sorted(iterable,  key=None, reverse=False)
+            iterable:可迭代对象。
+            key:主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。
+            reverse :排序规则，reverse = True 降序 ， reverse = False 升序（默认）。
+
+        主要用于排序，会生成新的序列
+
+        print(sorted(list1, reverse=True))  # [8, 7, 6, 5, 4, 3, 2, 1]
+        L = [('b', 2), ('a', 1), ('c', 3), ('d', 4)]
+        print(sorted(L, key=lambda x: x[1]))  # [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+        students = [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
+        print(sorted(students, key=lambda s: s[2]))  # [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+        元素是一个值的sorted函数可以不传递函数
+        元素是多个值的，例如字典、列表里存储元组如上L，students可以传递函数，这个函数只用来指明按照哪个值进行排序的
+
+
+
+
+
+
+
+
+
 """
 
 
@@ -335,4 +583,110 @@ test_global()
 print(a)  # 300 全局变量在函数内部被修改
 
 
+def user_info(name, age, gender):
+    print(f'您的名字是{name}, 年龄是{age}, 性别是{gender}')
+
+
+user_info('TOM', 20, '男')  # 您的名字是TOM, 年龄是20, 性别是男
+user_info(20, 'TOM', '男')  # 您的名字是20, 年龄是TOM, 性别是男
+
+user_info(name='Tom', age=20, gender='男')  # 您的名字是TOM, 年龄是20, 性别是男
+user_info(gender='男', age=20, name='Tom')  # 您的名字是TOM, 年龄是20, 性别是男
+
+user_info('Tom', age=20, gender='男')  # 您的名字是TOM, 年龄是20, 性别是男
+
+
+def user_info(name, age, gender='男'):
+    print(f'您的名字是{name}, 年龄是{age}, 性别是{gender}')
+
+
+user_info('TOM', 20)  # 您的名字是TOM, 年龄是20, 性别是男
+user_info('Rose', 18, '⼥')  # 您的名字是Rose, 年龄是18, 性别是⼥
+
+
+def get_all_sum(*args):
+    sum = 0
+    for num in args:
+        sum += num
+    print(f"{len(args)}个数的和是：{sum}")
+
+
+get_all_sum(1)  # 1个数的和是：1
+get_all_sum(1, 2)  # 2个数的和是：3
+get_all_sum(1, 2, 3)  # 3个数的和是：6
+get_all_sum(1, 2, 3, 4)  # 4个数的和是：10
+
+
+def user_info(**kwargs):
+    print(kwargs)
+
+
+user_info(name='TOM', age=18, id=110)  # {'name': 'TOM', 'age': 18, 'id': 110}
+
+
+print(id(1))  # 1507308431664
+
+
+var_c = 10
+var_list = [10]
+
+
+def var(c, b):
+    c = 20
+    b.append(20)
+
+
+var(var_c, var_list)
+print(var_c)  # 10
+print(var_list)  # [10, 20]
+
+
+def sum_func(a1, b1, c1):
+    return a1 + b1 + c1
+
+
+sum_lambda = lambda a1, b1, c1: a1 + b1 + c1
+print(sum_func(1, 2, 3))  # 6
+print(sum_lambda(1, 2, 3))  # 6
+print((lambda a1, b1, c1: a1 + b1 + c1)(1, 2, 3))  # 6
+
+
+def fact(n):
+    if n == 1 or n == 0:
+        return 1
+    return n * fact(n-1)
+
+
+print(fact(1))  # 1
+print(fact(2))  # 2
+print(fact(3))  # 6
+print(fact(4))  # 24
+print(fact(5))  # 120
+
+
+def func1(x):
+    return x**2
+
+
+list1 = [1, 2, 3, 4, 5, 6, 7, 8]
+result1 = list(map(func1, list1))
+print(result1)  # [1, 4, 9, 16, 25, 36, 49, 64]
+result2 = list(map(lambda x: x**2, list1))
+print(result2)  # [1, 4, 9, 16, 25, 36, 49, 64]
+
+result3 = list(filter(lambda x: x % 2 == 0, list1))
+print(result3)  # [2, 4, 6, 8]
+
+
+from functools import reduce
+result4 = reduce(lambda x, y: x + y, list1)
+print(result4)  # 36
+
+print(sorted(list1, reverse=True))  # [8, 7, 6, 5, 4, 3, 2, 1]
+
+L = [('b', 2), ('a', 1), ('c', 3), ('d', 4)]
+print(sorted(L, key=lambda x: x[1]))  # [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+
+students = [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
+print(sorted(students, key=lambda s: s[2]))  # [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
 
