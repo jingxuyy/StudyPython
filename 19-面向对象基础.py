@@ -206,6 +206,7 @@
 
     3. 静态方法
         有的时候，一些方法只是将其封装到类中，方便管理，但是使用时候，又不需要创建对象，此时可以创建静态方法
+        静态方法不需要使用对象调用，因此静态方法的形参没有实例方法的self形参或者类方法的cls形参
 
         形式：
         @staticmethod
@@ -225,6 +226,13 @@
         print(Calculator.div(1, 5))  # 0.2
 
         静态方法调用时不需要创建对象，使用 类名.方法名(参数) 即可
+
+
+    补充：
+        在Python中一切皆对象，因此之前学习的 字符串、列表、字典等都是对象
+        并且 整数、浮点数等都是对象
+
+        这些都是python内置对象，为了方法使用并没有 让我们显示的创建这些对象，而是python解释器进行了创建
 
 
 
@@ -293,19 +301,21 @@
 # dog2 = Dog("Max")
 # print(Dog.get_num_of_dogs())  # 输出: 2
 
-# class Calculator(object):
-#
-#     @staticmethod
-#     def sum(x, y):
-#         return x + y
-#
-#     @staticmethod
-#     def div(x, y):
-#         return x / y
-#
-#
-# print(Calculator.sum(1, 5))  # 6
-# print(Calculator.div(1, 5))  # 0.2
+class Calculator(object):
+
+    @staticmethod
+    def sum(x, y):
+        return x + y
+
+    @staticmethod
+    def div(x, y):
+        return x / y
+
+
+
+print(Calculator.sum(1, 5))  # 6
+print(Calculator.div(1, 5))  # 0.2
+
 
 
 
