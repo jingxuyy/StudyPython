@@ -110,6 +110,61 @@
                             4. 不存在，则当前元素放入最终访问顺序列表，并且删除那些相同头部的首元素
                             5. 存在，则说明继承关系存在错误，报错
 
+            1. 子类直接使用父类属性和函数：
+                例如：
+                    class Animal:
+                        name = "Animal"
+                        def speak(self):
+                            return "Meow"
+
+                    class Dog(Animal):
+                        pass
+
+                    class Cat(Animal):
+                        pass
+
+                    dog = Dog()
+                    print(dog.speak())  # Meow
+                    print(dog.name)  # Animal
+
+                    cat = Cat()
+                    print(cat.speak())  # Meow
+                    print(cat.name)  # Animal
+            2. 子类直接完全重写父类方法
+                例如：
+                    class Bird:
+                        def speak(self):
+                            return "Chirp!"
+
+                    class Parrot(Bird):
+                        def speak(self):
+                            return "Polly wants a cracker!"
+
+                    parrot = Parrot()
+                    print(parrot.speak())  # 输出: Polly wants a cracker!
+
+            3. 在子类方法里调用父类的方法：需要使用 super()方法
+                例如：
+                    class Rectangle:
+                        def __init__(self, length, width):
+                            self.length = length
+                            self.width = width
+
+                        def area(self):
+                            return self.length * self.width
+
+                    class Square(Rectangle):
+                        def __init__(self, side_length):
+                            super().__init__(side_length, side_length)  # 调用父类的 __init__() 方法
+
+                    square = Square(5)
+                    print(square.area())  # 输出: 25
+                子类Square调用了父类Rectangle的__init__方法，并且将参数传递给了父类，这样会将当前类Square所创建的对象拥有了父类的属性，即length和width
+                当存在继承关系时，如果子类和父类有共同的实例属性，那么子类就可以复用父类的实例属性，只需要在子类的__init__方法里使用super()方法调用父类方法即可
+                    这样子类创建出的对象会拥有父类的实例属性，当然赋值需要在子类的__init__方法里使用参数传递给父类的__init__方法
+                    这样可以减少子父类重复对象属性的声明，子类也可以只关注自己独有的属性赋值
+
+
 """
 
 
@@ -150,19 +205,75 @@
 #
 # print(A.mro())  # [<class '__main__.A'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.D'>, <class '__main__.E'>, <class 'object'>]
 
-class E:
-    pass
+# class E:
+#     pass
+#
+# class C(E):
+#     pass
+# class B(C):
+#     pass
+#
+#
+# class D(C):
+#     pass
+#
+# class A(D, B):
+#     pass
+#
+# print(A.mro())  # [<class '__main__.A'>, <class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.E'>, <class 'object'>]
 
-class C(E):
-    pass
-class B(C):
-    pass
+
+# class Animal:
+#     name = "Animal"
+#     def speak(self):
+#         return "Meow"
+#
+#
+# class Dog(Animal):
+#     pass
+#
+#
+# class Cat(Animal):
+#     pass
+#
+#
+# dog = Dog()
+# print(dog.speak())  # Meow
+# print(dog.name)  # Animal
+#
+# cat = Cat()
+# print(cat.speak())  # Meow
+# print(cat.name)  # Animal
 
 
-class D(C):
-    pass
+# class Bird:
+#     def speak(self):
+#         return "Chirp!"
+#
+#
+# class Parrot(Bird):
+#     def speak(self):
+#         return "Polly wants a cracker!"
+#
+#
+# parrot = Parrot()
+# print(parrot.speak())  # 输出: Polly wants a cracker!
 
-class A(D, B):
-    pass
 
-print(A.mro())  # [<class '__main__.A'>, <class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.E'>, <class 'object'>]
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+
+    def area(self):
+        return self.length * self.width
+
+
+class Square(Rectangle):
+    def __init__(self, side_length):
+        super().__init__(side_length, side_length)  # 调用父类的 __init__() 方法
+
+
+square = Square(5)
+print(square.area())  # 输出: 25
+
